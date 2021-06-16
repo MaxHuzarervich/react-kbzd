@@ -5,7 +5,7 @@ type PropsType = {
     onChange: (on:boolean)=>void
 }
 
-function OnOff(props: PropsType) {
+export function OnOff(props: PropsType) {
 
     const onStyle = {
         width:'30px',
