@@ -31,9 +31,9 @@ type AccordionBodyPropsType = {
 function AccordionBody(props:AccordionBodyPropsType) {
     console.log('AccordionBody rendering')
     return <ul>
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
+        {props.items.map(i => <li>{i}</li>)}
+        {/* каждый item приходит к нам сюда и вместо item возвращаю конкретную li-шку!
+        Значение item зарисуем в конкротной li-шке*/}
     </ul>
 
 }
