@@ -3,7 +3,7 @@ import React from "react";
 export type RatingValueType = 0 | 1 | 2 | 3 | 4 | 5;
 
 type RatingPropsType = {
-    value: 0 | 1 | 2 | 3 | 4 | 5,
+    value: RatingValueType,
     onClick: (value: RatingValueType) => void
 };
 
