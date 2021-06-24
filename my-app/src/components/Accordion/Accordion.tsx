@@ -1,12 +1,10 @@
 import React from "react";
-import {type} from "os";
 
 type AccordionPropsType = {
     titleValue: string
     collapsed: boolean
     onChange: () => void
 }
-
 export function Accordion(props: AccordionPropsType) {
     return <div>
         <AccordionTitle title={props.titleValue} onChange={props.onChange}/>
