@@ -48,7 +48,30 @@ export const ControlledInput = () => {
 }
 
 export const ControlledCheckbox = () => {
+    const [parentValue, setParentValue] = useState(true)
+
+//currentTarget тот элемент с которым происходит событие
+    //закидываем в инрут пустое значение, пишем что-нибудь срабатывает подписчик,
+    //мы достаем value и сетаем его в локальный стейт
+    const change = (e: ChangeEvent<HTMLInputElement>) => {
+        setParentValue(e.currentTarget.checked)
+    }
+    return <input type='checkbox' checked={parentValue} onChange={change}/>
 }
 
 export const ControlledSelect = () => {
+    const [parentValue, setParentValue] = useState<string | undefined>(undefined)
+
+//currentTarget тот элемент с которым происходит событие
+    //закидываем в инрут пустое значение, пишем что-нибудь срабатывает подписчик,
+    //мы достаем value и сетаем его в локальный стейт
+    const change = (e: ChangeEvent<HTMLSelectElement>) => {
+        setParentValue(e.currentTarget.value)
+    }
+    return <select value={parentValue} onChange={change}>
+        <option>none</option>
+        <option value={'1'}>Minsk</option>
+        <option value={'2'}>Moscow</option>
+        <option value={'3'}>Kiev</option>
+    </select>
 }
