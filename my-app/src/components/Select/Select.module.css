@@ -1,0 +1,10 @@
+.select {
+    border: 1px solid black
+}
+
+.items {
+    /*контент накладывается сверху не отодвигая другие элементы*/
+    position: absolute;
+    padding: 5px;
+    border: 1px solid black;
+}
