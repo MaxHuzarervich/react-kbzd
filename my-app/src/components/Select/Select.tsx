@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, KeyboardEvent, useEffect} from "react";
 import styles from './Select.module.css';
 
 type ItemType = {
@@ -21,11 +21,37 @@ export function Select(props: SelectPropsType) {
     const selectedItem = props.items.find(i => i.value === props.value)
     const hoveredItem = props.items.find(i => i.value === hoveredElementValue)
 
+    useEffect(() => {
+        setHoveredElementValue(props.value)
+    }, [props.value])
+
     const toggleItems = () => setActive(!active) //противоположное значение active
 
     const onItemClick = (value: any) => {
-        props.onChange(value);
-        toggleItems(); //чтобы скрывалось меню при выборе
+        props.onChange(value)
+        toggleItems() //чтобы скрывалось меню при выборе
+    }
+    const onKeyUp = (e: KeyboardEvent<HTMLDivElement>) => {
+        if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+            for (let i = 0; i < props.items.length; i++) { //пробегаемс по всем item-ам
+                if (props.items[i].value === hoveredElementValue) {
+                    const pretendentElement = e.key === 'ArrowDown' ? props.items[i + 1] : props.items[i - 1];
+                    if (pretendentElement) {
+                        props.onChange(pretendentElement.value);
+                        //если текущее пропс итем итое
+                        // его вэлью равно тому вэлью которое является ховэрнутым, тогда делаем следующим ховернутым элементом
+                        // следующий элемент в списке
+                        return;
+                    }
+                }
+            }
+            if (!selectedItem) {
+                props.onChange(props.items[0].value)
+            } // если ничего не нашлось возвращаем первый элемент
+        }
+        if (e.key === 'Enter' || e.key === 'Escape') {
+            setActive(false)
+        }
     }
 
     return (
@@ -39,7 +65,7 @@ export function Select(props: SelectPropsType) {
 
                     &&
 
-                    <div className={styles.items}>
+                    <div className={styles.items} onKeyUp={onKeyUp} tabIndex={0}>
 
                         {props.items.map(i =>
                             <div //когда мышка над элементом
@@ -52,7 +78,8 @@ export function Select(props: SelectPropsType) {
                                 //если selectedItem
                                 // равен тому item-у по которому пробегаемся то меняем класс
                                 key={i.value}
-                                onClick={() => {onItemClick(i.value) //это value придет в onItemClick
+                                onClick={() => {
+                                    onItemClick(i.value) //это value придет в onItemClick
                                 }}>{i.title}</div>)}
                     </div>
                 }
