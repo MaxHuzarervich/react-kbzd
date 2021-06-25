@@ -11,8 +11,8 @@ type SelectPropsType = {
     items: ItemType []  // массив строк!
 };
 
-export function Select(props: RatingPropsType) {
-    console.log('Rating rendering')
+export function Select(props: SelectPropsType) {
+    console.log('Select rendering')
 
     return (<div>
         <div>{}</div>
