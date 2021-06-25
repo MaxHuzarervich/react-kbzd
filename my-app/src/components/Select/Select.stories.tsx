@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {Select} from "./Select";
 import {action} from "@storybook/addon-actions";
 
@@ -8,20 +8,25 @@ export default {
 };
 //action из сторибука выведет в консоль 'value changed'
 // если вдруг коллбек будет вызван внутри компоненты select
-export const WithValue = () =>
-    <>
-        <Select onChange={action('value changed')}
-                value={'2'}
+export const WithValue = () => {
+    const [value, setValue] = useState('2')
+    return <>
+        <Select onChange={setValue}
+                value={value}
                 items={[
                     {value: '1', title: 'Minsk'},
                     {value: '2', title: 'Moscow'},
                     {value: '3', title: 'Kiev'}]}/>
     </>
-export const WithoutValue = () =>
-    <>
-        <Select onChange={action('value changed')}
+}
+
+export const WithoutValue = () => {
+    const [value, setValue] = useState(null)
+    return <>
+        <Select onChange={setValue}
+                value={value}
                 items={[
                     {value: '1', title: 'Minsk'},
                     {value: '2', title: 'Moscow'},
                     {value: '3', title: 'Kiev'}]}/>
-    </>
+    </>}

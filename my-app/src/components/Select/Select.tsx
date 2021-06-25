@@ -21,20 +21,26 @@ export function Select(props: SelectPropsType) {
 
     const toggleItems = () => setActive(!active) //противоположное значение active
 
+    const onItemClick = (value: any) => {
+        props.onChange(value);
+        toggleItems(); //чтобы скрывалось меню при выборе
+    }
+
     return (
         <>
-            <select>
-                <option value={''}>Minsk</option>
-                <option value={''}>Moscow</option>
-                <option value={''}>Kiev</option>
-            </select>
-
             <div className={styles.select}>
-                <h3 onClick={toggleItems}>{selectedItem && selectedItem.title}</h3>
+                <span className={styles.main} onClick={toggleItems}>{selectedItem && selectedItem.title}</span>
                 { //если класс active то рисуем эту дивку
                     active &&
                     <div className={styles.items}>
-                        {props.items.map(i => <div key={i.value}>{i.title}</div>)}
+                        {props.items.map(i =>
+                            <div key={i.value}
+                                 className={styles.item + '' + (selectedItem === i ? styles.selected : '')}
+                                //если selectedItem
+                                // равен тому item-у по которому пробегаемся то меняем класс
+                                 onClick={() => {
+                                     onItemClick(i.value) //это value придет в onItemClick
+                                 }}>{i.title}</div>)}
                     </div>
                 }
             </div>
