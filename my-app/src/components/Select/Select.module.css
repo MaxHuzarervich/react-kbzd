@@ -10,11 +10,9 @@
     position: absolute;
     padding: 5px;
     border: 1px solid black;
-    color: red;
-    background-color: black;
 }
 
 .item.selected {
-    background-color: red;
-    color:black;
+    background-color: blue;
+    color:white;
 }
