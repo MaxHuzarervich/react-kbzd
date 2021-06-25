@@ -1,23 +1,31 @@
 .select span.main {
-    border: 1px solid black;
+    border: 1px black;
     display: inline-block;
     min-height: 20px;
-    min-width: 70px;
+    min-width: 80px;
+    background: linear-gradient(360deg, red, #333333);
+    text-align: center;
+    font-family: "Bauhaus 93";
+    color:bisque;
+    border-radius: 10px 10px 0px 0px;
 }
 
 .items {
     /*контент накладывается сверху не отодвигая другие элементы*/
     position: absolute;
     padding: 5px;
-    border: 1px inherit;
-    border-radius: 5px;
-    background: linear-gradient(90deg,green,red);
+    border: 1px;
+    border-radius: 0px 0px 5px 5px;
+    background: linear-gradient(360deg,#333333,red);
     min-width: 70px;
+    font-family: fantasy;
+    color:burlywood;
 }
 
 .item.selected {
-    background: linear-gradient(90deg, red, green);
-    color:white;
+    background: linear-gradient(1deg, red, #333333);
+    color:burlywood;
     border-radius: 5px;
     font-family: "Bauhaus 93";
+    text-align: center;
 }
