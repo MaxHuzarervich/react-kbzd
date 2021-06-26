@@ -11,7 +11,7 @@ export function UncontrolledAccordion(props: AccordionPropsType) {
     console.log('Accordion rendering')
     // let [collapsed, setCollapsed] = useState(false)
 
-    let [collapsed, dispatch] = useReducer(reducer, false)//стартовое значение false
+    let [state, dispatch] = useReducer(reducer, {collapsed: false})//стартовое значение false
 
     return <div>
         {/*<AccordionTitle title={props.titleValue} onClick={() => {setCollapsed(!collapsed)}}/>*/}
@@ -21,7 +21,7 @@ export function UncontrolledAccordion(props: AccordionPropsType) {
         }}/>
         {/*при нажатии на кнопку AccordionTitle мы диспатчим инструкцию,dispatch - ф-ция которая вылезла из usereducer
         c помощью которого реакт позволяет нам отправлять эти команды action чтобы можно было преобразовать state*/}
-        {!collapsed && <AccordionBody/>}
+        {!state.collapsed && <AccordionBody/>}
     </div>
 }
 

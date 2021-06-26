@@ -1,4 +1,4 @@
-import React, {useState, KeyboardEvent, useEffect} from "react";
+import React, {KeyboardEvent, useEffect, useState} from "react";
 import styles from './Select.module.css';
 
 type ItemType = {
