@@ -2,9 +2,9 @@ type actionType = {
     type: string
 }
 
-const TOGGLE_CONSTANT = 'TOGGLE-COLLAPSED'
+export const TOGGLE_CONSTANT = 'TOGGLE-COLLAPSED'
 
-type StateType = {
+export type StateType = {
     collapsed: boolean
 }
 
