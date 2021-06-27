@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useMemo, useState} from "react";
 
 export default {
     title: 'useMemo'
@@ -6,15 +6,23 @@ export default {
 
 export const Example1 = () => {
 
-    const [a, setA] = useState<number>(3)
-    const [b, setB] = useState<number>(3)
+    const [a, setA] = useState<number>(5)
+    const [b, setB] = useState<number>(5)
 
     let resultA = 1;
     let resultB = 1;
 
-    for (let i = 1; i <= a; i++) {    //расчет факториала числа a
-        resultA = resultA * i;
-    }
+    resultA = useMemo(() => { //useMemo вычисли эти вычисления и запомни их, до тех пор пока "а" не поменяется
+        let tempResultA = 1;
+        for (let i = 1; i <= a; i++) {    //расчет факториала числа a
+            tempResultA = tempResultA * i;
+        }
+        return tempResultA;
+    }, [a]) //2-м параметром принимает те самые зависимости,
+    // на которые useMemo будет обращать внимание, чтобы перезапускать эту ф-цию или нет.
+    // Если а не поменялось, то не нужно вызывать этот коллбек
+
+
     for (let i = 1; i <= b; i++) {    //расчет факториала числа b
         resultB = resultB * i;
     }
@@ -26,10 +34,10 @@ export const Example1 = () => {
                onChange={(e) => setB(+e.currentTarget.value)}/>
         <hr/>
         <div>
-            Result for a:
+            Result for a: {resultA}
         </div>
         <div>
-            Result for b:
+            Result for b: {resultB}
         </div>
     </>
 }
