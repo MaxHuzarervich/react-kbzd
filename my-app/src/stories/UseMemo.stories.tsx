@@ -90,7 +90,10 @@ export const LikeUseCallback = () => {
     const [counter, setCounter] = useState(0);
     const [books, setBooks] = useState(['React', 'JS', 'CSS', 'HTML']);
 
-    const newArray = useMemo(() => { //отфильтрованный массив книг который мы замемоизировали
+    const newArray = useMemo(() => { //отфильтрованный массив книг который
+        // мы замемоизировали,если бы мы его не замемоизировали то каждый раз при
+        // увеличении счетчика, компонента наша перерисовывалась и перерисовывались
+        // бы книги отфильтрованные,хотя по факту они не отфильтрованы
         const newArray = books.filter(book => book.toLowerCase().indexOf('a') > -1)
         return newArray
     }, [books]); //users - наша зависимость
