@@ -84,3 +84,37 @@ export const HelpsToReactMemo = () => {
         <Users users={newArray}/>
     </>
 }
+
+export const LikeUseCallback = () => {
+    console.log('LikeUseCallback')
+    const [counter, setCounter] = useState(0);
+    const [books, setBooks] = useState(['React', 'JS', 'CSS', 'HTML']);
+
+    const newArray = useMemo(() => { //отфильтрованный массив книг который мы замемоизировали
+        const newArray = books.filter(book => book.toLowerCase().indexOf('a') > -1)
+        return newArray
+    }, [books]); //users - наша зависимость
+    //users у которых есть буква 'a'
+    //метод filter создает новый массив
+    const addBook = () => {
+        const newUsers = [...books, 'Angular' + new Date().getTime()];
+        setBooks(newUsers);
+    }
+    return <>
+        <button onClick={() => setCounter(counter + 1)}>+</button>
+        <button onClick={addBook}>add book</button>
+        {counter}
+        <Book books={newArray}/>
+    </>
+}
+
+const BooksSecret = (props: { books: Array<string> }) => {
+    console.log('BooksSecret')
+    //отрисовка списка users
+    return <div>
+        {props.books.map((book, i) => <div>{book}</div>)}
+    </div>
+}
+
+const Book = React.memo(BooksSecret);//мы засунули в мемо одну компоненту,
+// а она нам выплюнула контейнерную, которая следит за пропсами
