@@ -1,6 +1,4 @@
-import {useState} from "react";
-import React from "react";
-import {log} from "util";
+import React, {useState} from "react";
 
 export default {
     title: 'React.memo demo'
@@ -11,7 +9,7 @@ const NewMessagesCounter = (props: any) => {
 }
 
 const UsersSecret = (props: { users: Array<string> }) => {
-    console.log('Users')
+    console.log('UsersSecret')
     return<div>
         {props.users.map((u, i) => <div>{u}</div>)}
     </div>
