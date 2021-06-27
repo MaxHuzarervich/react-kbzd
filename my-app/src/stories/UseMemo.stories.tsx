@@ -12,9 +12,15 @@ export const Example1 = () => {
     let resultA = 1;
     let resultB = 1;
 
-    resultA = useMemo(() => { //useMemo вычисли эти вычисления и запомни их, до тех пор пока "а" не поменяется
+    resultA = useMemo(() => { //useMemo вычисли эти вычисления и запомни их, до тех пор пока "а" не поменяется.
+        // Если "а" поменяется запускай еще раз эту ф-цию.
         let tempResultA = 1;
         for (let i = 1; i <= a; i++) {    //расчет факториала числа a
+            let fake = 0;
+            while(fake<1000){
+                fake++;
+                const fakeValue = Math.random();
+            }
             tempResultA = tempResultA * i;
         }
         return tempResultA;
