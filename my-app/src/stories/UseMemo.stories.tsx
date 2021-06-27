@@ -4,7 +4,7 @@ export default {
     title: 'useMemo'
 }
 
-export const Example1 = () => {
+export const DifficultCountingExample = () => {
 
     const [a, setA] = useState<number>(5)
     const [b, setB] = useState<number>(5)
@@ -17,7 +17,7 @@ export const Example1 = () => {
         let tempResultA = 1;
         for (let i = 1; i <= a; i++) {    //расчет факториала числа a
             let fake = 0;
-            while(fake<1000){
+            while(fake<1000){ //пример: для увеличения времени загрузки
                 fake++;
                 const fakeValue = Math.random();
             }
@@ -47,3 +47,4 @@ export const Example1 = () => {
         </div>
     </>
 }
+
