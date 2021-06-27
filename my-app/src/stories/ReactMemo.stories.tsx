@@ -10,12 +10,15 @@ const NewMessagesCounter = (props: any) => {
 
 const UsersSecret = (props: { users: Array<string> }) => {
     console.log('UsersSecret')
+    //отрисовка списка users
     return<div>
         {props.users.map((u, i) => <div>{u}</div>)}
     </div>
 }
 
-const Users = React.memo(UsersSecret); //скармливаем мемо свою компоненту
+const Users = React.memo(UsersSecret); //скармливаем мемо свою компоненту,
+// а она выплевывает нам контейнерную компоненту,
+// которая проверяет если поменялись входные пропсы то вызывает UsersSecret.
 
 export const Example1 = () => {
     console.log('Example1')
