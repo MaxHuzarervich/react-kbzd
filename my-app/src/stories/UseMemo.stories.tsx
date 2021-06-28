@@ -107,17 +107,19 @@ export const LikeUseCallback = () => {
         setBooks(newUsers);
     }
 
-    const memoizedAddBook = useMemo(addBook, [books])//мемоизируем ф-цию addBook с зависимостью books
+    const memoizedAddBook = useMemo(() => {
+        return addBook
+    }, [books])//мемоизируем ф-цию addBook,
+    // с зависимостью books. Запомни ее пока у тебя не изменится объект books.
 
     return <>
         <button onClick={() => setCounter(counter + 1)}>+</button>
         {counter}
-        <Book addBook={addBook}/>
+        <Book addBook={memoizedAddBook}/>
     </>
 }
 
 type BookSecretPropsType = {
-    books: Array<string>;
     addBook: () => void
 }
 
@@ -126,7 +128,6 @@ const BooksSecret = (props: BookSecretPropsType) => {
     //отрисовка списка users
     return <div>
         <button onClick={props.addBook}>add book</button>
-        {props.books.map((book, i) => <div>{book}</div>)}
     </div>
 }
 
