@@ -90,31 +90,42 @@ export const LikeUseCallback = () => {
     const [counter, setCounter] = useState(0);
     const [books, setBooks] = useState(['React', 'JS', 'CSS', 'HTML']);
 
-    const newArray = useMemo(() => { //отфильтрованный массив книг который
-        // мы замемоизировали,если бы мы его не замемоизировали то каждый раз при
-        // увеличении счетчика, компонента наша перерисовывалась и перерисовывались
-        // бы книги отфильтрованные,хотя по факту они не отфильтрованы
-        const newArray = books.filter(book => book.toLowerCase().indexOf('a') > -1)
-        return newArray
-    }, [books]); //users - наша зависимость
-    //users у которых есть буква 'a'
-    //метод filter создает новый массив
-    const addBook = () => {
+    // const newArray = useMemo(() => { //отфильтрованный массив книг который
+    //     // мы замемоизировали,если бы мы его не замемоизировали то каждый раз при
+    //     // увеличении счетчика, компонента наша перерисовывалась и перерисовывались
+    //     // бы книги отфильтрованные,хотя по факту они не отфильтрованы
+    //     // ,условный фильтр не меняется.useMemo запоминает этот фильтрованный вариант
+    //     // ,и возращает нам один и тот же массив
+    //     const newArray = books.filter(book => book.toLowerCase().indexOf('a') > -1)
+    //     return newArray
+    // }, [books]); //users - наша зависимость
+    // //users у которых есть буква 'a'
+    // //метод filter создает новый массив
+
+    const addBook = () => { //я создаю при помощи стрелочного синтаксиса новую ф-цию
         const newUsers = [...books, 'Angular' + new Date().getTime()];
         setBooks(newUsers);
     }
+
+    const memoizedAddBook = useMemo(addBook, [books])//мемоизируем ф-цию addBook с зависимостью books
+
     return <>
         <button onClick={() => setCounter(counter + 1)}>+</button>
-        <button onClick={addBook}>add book</button>
         {counter}
-        <Book books={newArray}/>
+        <Book addBook={addBook}/>
     </>
 }
 
-const BooksSecret = (props: { books: Array<string> }) => {
+type BookSecretPropsType = {
+    books: Array<string>;
+    addBook: () => void
+}
+
+const BooksSecret = (props: BookSecretPropsType) => {
     console.log('BooksSecret')
     //отрисовка списка users
     return <div>
+        <button onClick={props.addBook}>add book</button>
         {props.books.map((book, i) => <div>{book}</div>)}
     </div>
 }
