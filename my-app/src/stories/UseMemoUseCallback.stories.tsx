@@ -1,4 +1,4 @@
-import React, {useMemo, useState} from "react";
+import React, {useCallback, useMemo, useState} from "react";
 
 export default {
     title: 'useMemo'
@@ -88,34 +88,33 @@ export const HelpsToReactMemo = () => {
 export const LikeUseCallback = () => {
     console.log('LikeUseCallback')
     const [counter, setCounter] = useState(0);
-    const [books, setBooks] = useState(['React', 'JS', 'CSS', 'HTML']);
+    const [books, setBooks] = useState(['React', 'JS', 'CSS', 'HTML']);//
+    // Lexical Env 4 books Лексическое окружение, умирает после отрабатывания ф-ции до конца.
+    // Но оно не умирает если есть какае-то внутрення ф-ция, которая продолжает жить и которая
+    // использует значения не из своего лексического окружения а из окружения снаружи
+    // addBook использует книги используемые снаружи!!!
 
-    // const newArray = useMemo(() => { //отфильтрованный массив книг который
-    //     // мы замемоизировали,если бы мы его не замемоизировали то каждый раз при
-    //     // увеличении счетчика, компонента наша перерисовывалась и перерисовывались
-    //     // бы книги отфильтрованные,хотя по факту они не отфильтрованы
-    //     // ,условный фильтр не меняется.useMemo запоминает этот фильтрованный вариант
-    //     // ,и возращает нам один и тот же массив
-    //     const newArray = books.filter(book => book.toLowerCase().indexOf('a') > -1)
-    //     return newArray
-    // }, [books]); //users - наша зависимость
-    // //users у которых есть буква 'a'
-    // //метод filter создает новый массив
-
-    const addBook = () => { //я создаю при помощи стрелочного синтаксиса новую ф-цию
-        const newUsers = [...books, 'Angular' + new Date().getTime()];
-        setBooks(newUsers);
-    }
 
     const memoizedAddBook = useMemo(() => {
-        return addBook
-    }, [books])//мемоизируем ф-цию addBook,
+            return () => {
+                const newUsers = [...books, 'Angular' + new Date().getTime()]
+                setBooks(newUsers)
+            }//lexical env ф-ции addBook это newUsers
+        }, [books]
+    );//мемоизируем ф-цию addBook,
     // с зависимостью books. Запомни ее пока у тебя не изменится объект books.
+    // Если изменится перезатри, то запомнил тогда
+
+    const memoizedAddBook2 = useCallback(() => {//запомни эту ф-циюю
+            const newUsers = [...books, 'Angular' + new Date().getTime()]
+            setBooks(newUsers)//lexical env ф-ции addBook это newUsers
+        }, [books]
+    );
 
     return <>
         <button onClick={() => setCounter(counter + 1)}>+</button>
         {counter}
-        <Book addBook={memoizedAddBook}/>
+        <Book addBook={memoizedAddBook2}/>
     </>
 }
 
