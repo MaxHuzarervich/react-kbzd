@@ -29,6 +29,31 @@ console.log('SimpleExample')
 
     return <>
         Hello, {counter} {fake}
-        <button onClick={() => { setFake( fake + 1 ) }} >+</button>
+        <button onClick={() => { setFake( fake + 1 ) }}> fake </button>
+        <button onClick={() => { setCounter( counter + 1 ) }}>counter +</button>
+    </>
+}
+
+export const SetTimeoutExample = () => {
+
+    const [fake, setFake] = useState(1);
+    const [counter, setCounter] = useState(1);
+
+    console.log('SetTimeoutExample')
+
+    // useEffect(() => {
+    //     console.log('useEffect first render and every change counter')
+    //     document.title = counter.toString()
+    // })
+
+    setTimeout(() => {
+        debugger
+        document.title = counter.toString()
+    }, 1000)
+
+    return <>
+        Hello, {counter} {fake}
+        <button onClick={() => { setFake( fake + 1 ) }}> fake </button>
+        <button onClick={() => { setCounter( counter + 1 ) }}>counter +</button>
     </>
 }
