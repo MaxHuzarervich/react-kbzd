@@ -43,13 +43,13 @@ export const SetTimeoutExample = () => {
 
     useEffect(() => {
 
-        // setInterval(() => {
-        //
-        //         console.log('tick :' + counter)
-        //
-        //     setCounter((state) => state + 1)
-        //     }
-        // , 1000)
+        setInterval(() => {
+
+                console.log('tick :' + counter)
+
+            setCounter((state) => state + 1)
+            }
+        , 1000)
     }, [])
 
 
